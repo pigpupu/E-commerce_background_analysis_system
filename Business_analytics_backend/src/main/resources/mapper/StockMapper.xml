@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.businessanalysis.mapper.StockMapper">
+
+  <resultMap id="BaseResultMap" type="com.example.businessanalysis.domain.Stock">
+    <id property="id" column="id" jdbcType="INTEGER"/>
+    <result property="goodId" column="good_id" jdbcType="VARCHAR"/>
+    <result property="num" column="num" jdbcType="INTEGER"/>
+    <result property="stockNum" column="stock_num" jdbcType="INTEGER"/>
+    <result property="addTime" column="add_time" jdbcType="TIMESTAMP"/>
+    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id,good_id,num,
+        stock_num,add_time,update_time,
+        del_flag
+  </sql>
+</mapper>

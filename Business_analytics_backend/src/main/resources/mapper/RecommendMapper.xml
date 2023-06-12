@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.businessanalysis.mapper.RecommendMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.businessanalysis.domain.Recommend">
+            <result property="customerId" column="customer_id" jdbcType="VARCHAR"/>
+            <result property="goodId" column="good_id" jdbcType="VARCHAR"/>
+            <result property="score" column="score" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        customer_id,good_id,score
+    </sql>
+</mapper>

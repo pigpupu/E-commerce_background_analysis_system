@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.businessanalysis.mapper.GoodOrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.businessanalysis.domain.GoodOrder">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="customerId" column="customer_id" jdbcType="VARCHAR"/>
+            <result property="goodId" column="good_id" jdbcType="VARCHAR"/>
+            <result property="price" column="price" jdbcType="DECIMAL"/>
+            <result property="num" column="num" jdbcType="INTEGER"/>
+            <result property="totalPrice" column="total_price" jdbcType="DECIMAL"/>
+            <result property="isComment" column="is_comment" jdbcType="INTEGER"/>
+            <result property="addTime" column="add_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+
+    <sql id="Base_Column_List">
+        id,customer_id,good_id,price,num,
+        total_price,is_comment,add_time,
+        update_time,del_flag
+    </sql>
+
+    <select id="selectGoodOrderSaleMoneyMap" resultType="java.util.Map">
+        SELECT region_name,SUM(a.`total_price`) as periodTotal FROM t_good_order a
+        JOIN t_customer_address b JOIN t_region c ON a.`customer_id`=b.`id` AND b.`province`=c.`id`
+        ${ew.customSqlSegment}
+        GROUP BY c.region_name
+
+
+    </select>
+
+    <select id="selectGoodOrderSaleVolumeMap" resultType="java.util.Map">
+        SELECT region_name,SUM(a.`num`) as periodTotal FROM t_good_order a
+        JOIN t_customer_address b JOIN t_region c ON a.`customer_id`=b.`id` AND b.`province`=c.`id`
+            ${ew.customSqlSegment}
+        GROUP BY c.region_name
+
+
+    </select>
+
+    <select id="selectGoodOrderCustomerCompareVolume" resultType="java.util.Map">
+        SELECT b.customer_type,SUM(a.`num`) as periodTotal FROM t_good_order a
+        JOIN t_customer b ON a.`customer_id`=b.`id`
+            ${ew.customSqlSegment}
+        GROUP BY b.customer_type
+    </select>
+
+    <select id="selectGoodOrderCustomerCompareMoney" resultType="java.util.Map">
+        SELECT b.customer_type,SUM(a.`total_price`) as periodTotal FROM t_good_order a
+            JOIN t_customer b ON a.`customer_id`=b.`id`
+            ${ew.customSqlSegment}
+        GROUP BY b.customer_type
+    </select>
+
+
+</mapper>
